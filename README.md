@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/ks-vue-scrollmagic.svg)](https://www.npmjs.com/package/ks-vue-scrollmagic) [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
-> A Vue.js Plugin
+> Not ready yet, starting project ;)
 
 ## Installation
 
