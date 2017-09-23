@@ -4,34 +4,95 @@
  * Released under the MIT License.
  */
 
-var Hello = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"hello"},[_c('h1',{staticClass:"hello__title"},[_vm._v(_vm._s(_vm.msg))]),_c('span',[_vm._v("Count: "+_vm._s(_vm.n))]),_vm._v(" "),_c('button',{on:{"click":function($event){_vm.n++;}}},[_vm._v("Add")]),_c('ul',[_c('li',[_vm._v(_vm._s(_vm.n))])])])},staticRenderFns: [],
-  data: function data () {
-    return {
-      msg: 'Hello World!',
-      n: 0
-    }
-  }
-};
+var ScrollMagic = require('ScrollMagic');
+require('animation.gsap');
+var TweenMax = require('TimelineMax');
 
-var HelloJsx = {
-  name: 'HelloJsx',
-  data: function data () {
-    return {
-      msg: 'Hello JSX'
-    }
-  },
-  render: function render (h) {
-    return (
-      h('div', null, [
-        h('h1', {class: this.msg !== 'nope' ? 'hello__title' : ''}, [ this.msg])
-      ])
-    )
+var setScrollMagic = function (el,binding,vNode) {
+  var timeline = new TimelineMax();
+  var controller = new ScrollMagic.Controller();
+  var sceneParams = {
+    triggerHook: binding.value.triggerHook || null,
+    triggerElement: binding.value.triggerElement || el.parentNode,
+    duration: binding.value.duration,
+    offset: binding.value.offset
+  };
+
+  switch (binding.value.action) {
+    case 'setTween':
+      binding.value.tweens.forEach(function (tween) {
+        switch (tween.tweenType) {
+
+          case 'to':
+            timeline['to'](el, tween.duration,tween.to,tween.timing);
+            break;
+
+          case 'from':
+            timeline['from'](el, tween.duration,tween.from,tween.timing);
+            break;
+
+          case 'fromTo':
+            timeline['fromTo'](el, tween.duration, tween.from,tween.to,tween.timing);
+            break;
+
+          case 'staggerFrom':
+            timeline['staggerFrom'](el.children, tween.duration, tween.from,tween.stagger_time);
+            break;
+
+          case 'staggerTo':
+            timeline['staggerTo'](el.children, tween.duration, tween.to,tween.stagger_time);
+            break;
+
+          case 'staggerFromTo':
+            timeline['staggerFromTo'](el.children, tween.duration, tween.from,tween.to,tween.stagger_time);
+            break;
+
+          default:
+            break;
+
+        }
+      });
+      // build scene
+      var scene = new ScrollMagic.Scene(sceneParams)
+      .setTween(timeline)
+      .addTo(controller);
+      break;
+
+    case 'setClassToggle':
+      var scene = new ScrollMagic.Scene(sceneParams)
+      .setClassToggle(el,binding.value.class)
+      .addTo(controller);
+    break;
+
+    case 'setPin':
+      var scene = new ScrollMagic.Scene(sceneParams)
+      .setPin(el)
+      .addTo(controller);
+    break;
+    default:
+
   }
 };
 
 function plugin (Vue) {
-  Vue.component('hello', Hello);
-  Vue.component('hello-jsx', HelloJsx);
+  Vue.directive('scrollmagic', {
+    inserted: function inserted(el,binding,vNode){
+      vNode.context.$nextTick(function (){
+        setTimeout(function (){
+          setScrollMagic(el,binding,vNode);
+        },300);
+      });
+    },
+    update: function update(el,binding,vNode){
+      vNode.context.$nextTick(function (){
+        setTimeout(function (){
+          setScrollMagic(el,binding,vNode);
+        },300);
+      });
+    },
+    unbind: function unbind(el,binding,vNode){
+    }
+  });
 }
 
 // Install by default if using the script tag
@@ -41,4 +102,4 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 var version = '0.0.1';
 
-export { Hello, HelloJsx, version };export default plugin;
+export { version };export default plugin;

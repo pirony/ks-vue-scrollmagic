@@ -31,7 +31,13 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.jsx', 'css'],
     alias: {
-      'src': resolve(__dirname, '../src')
+      'src': resolve(__dirname, '../src'),
+      "TweenLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenLite.js'),
+      "TweenMax": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenMax.js'),
+      "TimelineLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TimelineLite.js'),
+      "TimelineMax": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TimelineMax.js'),
+      "ScrollMagic": resolve(__dirname, '../node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
+      "animation.gsap": resolve(__dirname, '../node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js')
     }
   },
   module: {
@@ -52,30 +58,8 @@ module.exports = {
           loaders: vueLoaders,
           postcss: [require('postcss-cssnext')()]
         }
-      },
-      {
-        test: require.resolve('gsap/src/uncompressed/TweenMax.js'),
-        use: [{
-          loader: 'expose-loader',
-          options: ['TweenMax', 'TweenLite', 'TimelineMax']
-        }]
-      },
-      {
-        test: require.resolve('scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
-        use: [{
-          loader: 'expose-loader',
-          options: ['ScrollMagic']
-        }]
       }
     ]
   },
-  plugins,
-  extend (config) {
-    config.resolve.alias["TweenLite"]= path.resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
-    config.resolve.alias["TweenMax"]= path.resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
-    config.resolve.alias["TimelineMax"]= path.resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
-    config.resolve.alias["ScrollMagic"]= path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
-    config.resolve.alias["animationgsap"]= path.resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
-    config.resolve.alias["picker"]= path.resolve('node_modules', 'materialize-css/js/date_picker/picker.js')
-  }
+  plugins
 }

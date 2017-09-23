@@ -1,6 +1,7 @@
+const ScrollMagic = require('ScrollMagic');
+require('animation.gsap');
+
 export const setScrollMagic = (el,binding,vNode) => {
-  let ScrollMagic = require('ScrollMagic')
-  require('animationgsap')
   const timeline = new TimelineMax();
   const controller = new ScrollMagic.Controller();
   const sceneParams = {
