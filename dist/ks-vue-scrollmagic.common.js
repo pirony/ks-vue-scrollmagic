@@ -1,5 +1,5 @@
 /*!
- * ks-vue-scrollmagic v0.0.1
+ * ks-vue-scrollmagic v0.0.2
  * (c) 2017 pirony
  * Released under the MIT License.
  */
@@ -4808,6 +4808,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var ScrollMagic = __webpack_require__(1);
 __webpack_require__(6);
 
@@ -4815,60 +4818,56 @@ var setScrollMagic = exports.setScrollMagic = function setScrollMagic(el, bindin
   var timeline = new TimelineMax();
   var controller = new ScrollMagic.Controller();
   var sceneParams = {
-    triggerHook: binding.value.triggerHook || null,
+    triggerHook: binding.value.triggerHook || '',
     triggerElement: binding.value.triggerElement || el.parentNode,
     duration: binding.value.duration,
     offset: binding.value.offset
   };
+  var actions = binding.value.actions;
+  var scene = new ScrollMagic.Scene(sceneParams);
 
-  switch (binding.value.action) {
-    case 'setTween':
-      binding.value.tweens.forEach(function (tween) {
-        switch (tween.tweenType) {
+  if (actions.setTween) {
+    actions.setTween.forEach(function (tween) {
+      switch (tween.tweenType) {
+        case 'to':
+          timeline['to'](el, tween.duration, tween.to, tween.timing);
+          break;
+        default:
+        case 'from':
+          timeline['from'](el, tween.duration, tween.from, tween.timing);
+          break;
 
-          case 'to':
-            timeline['to'](el, tween.duration, tween.to, tween.timing);
-            break;
+        case 'fromTo':
+          timeline['fromTo'](el, tween.duration, tween.from, tween.to, tween.timing);
+          break;
 
-          case 'from':
-            timeline['from'](el, tween.duration, tween.from, tween.timing);
-            break;
+        case 'staggerFrom':
+          timeline['staggerFrom'](el.children, tween.duration, tween.from, tween.stagger_time);
+          break;
 
-          case 'fromTo':
-            timeline['fromTo'](el, tween.duration, tween.from, tween.to, tween.timing);
-            break;
+        case 'staggerTo':
+          timeline['staggerTo'](el.children, tween.duration, tween.to, tween.stagger_time);
+          break;
 
-          case 'staggerFrom':
-            timeline['staggerFrom'](el.children, tween.duration, tween.from, tween.stagger_time);
-            break;
+        case 'staggerFromTo':
+          timeline['staggerFromTo'](el.children, tween.duration, tween.from, tween.to, tween.stagger_time);
+          break;
 
-          case 'staggerTo':
-            timeline['staggerTo'](el.children, tween.duration, tween.to, tween.stagger_time);
-            break;
-
-          case 'staggerFromTo':
-            timeline['staggerFromTo'](el.children, tween.duration, tween.from, tween.to, tween.stagger_time);
-            break;
-
-          default:
-            break;
-
-        }
-      });
-      // build scene
-      var scene = new ScrollMagic.Scene(sceneParams).setTween(timeline).addTo(controller);
-      break;
-
-    case 'setClassToggle':
-      var scene = new ScrollMagic.Scene(sceneParams).setClassToggle(el, binding.value.class).addTo(controller);
-      break;
-
-    case 'setPin':
-      var scene = new ScrollMagic.Scene(sceneParams).setPin(el).addTo(controller);
-      break;
-    default:
-
+      }
+    });
+    // build scene
+    scene.setTween(timeline);
   }
+
+  if (actions.setPin) {
+    scene.setPin(el);
+  }
+  if (actions.setClassToggle) {
+    var elem = actions.setClassToggle.element || el;
+    var cssClass = _typeof(actions.setClassToggle) === 'object' ? actions.setClassToggle.cssClass : actions.setClassToggle;
+    scene.setClassToggle(el, cssClass);
+  }
+  scene.addTo(controller);
 };
 
 /***/ }),

@@ -32,10 +32,10 @@ module.exports = {
     extensions: ['.js', '.vue', '.jsx', 'css'],
     alias: {
       'src': resolve(__dirname, '../src'),
-      "TweenLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenLite.js'),
+      "TweenLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenMax.js'),
       "TweenMax": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenMax.js'),
-      "TimelineLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TimelineLite.js'),
-      "TimelineMax": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TimelineMax.js'),
+      "TimelineLite": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenMax.js'),
+      "TimelineMax": resolve(__dirname, '../node_modules/gsap/src/uncompressed/TweenMax.js'),
       "ScrollMagic": resolve(__dirname, '../node_modules/scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
       "animation.gsap": resolve(__dirname, '../node_modules/scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js')
     }
