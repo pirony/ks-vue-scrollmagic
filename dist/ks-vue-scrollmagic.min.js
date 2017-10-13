@@ -1,5 +1,5 @@
 /*!
- * ks-vue-scrollmagic v0.1.2
+ * ks-vue-scrollmagic v0.1.3
  * (c) 2017 pirony
  * Released under the MIT License.
  */
