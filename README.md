@@ -5,8 +5,8 @@
 
 Easily use ScrollMagic with vue.js (and nuxt.js...).
 Now production ready!!!
-<!-- 
-Try it in this [ fiddle ](https://jsfiddle.net/romainPouchol/bstj6p41/5/). -->
+
+Try it in this [ fiddle ](https://jsfiddle.net/romainPouchol/bstj6p41/11/).
 
 ## Remaining tasks
 
