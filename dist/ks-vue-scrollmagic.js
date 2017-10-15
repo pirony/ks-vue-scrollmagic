@@ -13115,20 +13115,37 @@ function plugin(Vue) {
   Vue.prototype.$ksvuescr = new Vue({
     data: function data() {
       return {
-        controllers: []
+        controller: null,
+        scenes: {}
       };
     },
     created: function created() {
       var vm = this;
-      vm.$on('init', function (name, scenes) {
+      vm.$on('addScene', function (name, scenes) {
         Vue.nextTick(function () {
-          vm.controllers[name] = new vm.$scrollmagic.Controller();
-          scenes.addTo(vm.controllers[name]);
+          vm.controller = new vm.$scrollmagic.Controller();
+          vm.scenes[name] = scenes;
+          vm.scenes[name].addTo(vm.controller);
         });
       });
-      vm.$on('destroy', function (name, scenes) {
-        console.log('destroyed');
+      vm.$on('destroyScene', function (name) {
+        vm.scenes[name].destroy(true);
       });
+      vm.$on('destroy', function (name, scenes) {
+        vm.controller.destroy(true);
+        vm.controller = null;
+      });
+    }
+  });
+
+  Vue.directive('scrollmagic', {
+    updated: function updated(el, binding, vNode) {
+      Vue.nextTick(function () {
+        vNode.context.$ksvuescr.$emit('init', 'pinContainerScene', binding.value);
+      });
+    },
+    componentUpdated: function componentUpdated() {
+      console.log('comp updated');
     }
   });
 }

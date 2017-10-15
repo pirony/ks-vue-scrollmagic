@@ -3,27 +3,45 @@ import ScrollMagic from 'ScrollMagic'
 require('animation.gsap')
 
 function plugin (Vue) {
-  Vue.prototype.$tweenmax = gsap
+  Vue.prototype.$gsap = gsap
   Vue.prototype.$scrollmagic = ScrollMagic
   Vue.prototype.$ksvuescr = new Vue({
     data () {
       return {
-        controllers: []
+        controller: null,
+        scenes: {
+
+        }
       }
     },
     created () {
       const vm = this
-      vm.$on('init', (name, scenes) => {
+      vm.$on('addScene', (name, scenes) => {
         Vue.nextTick(() => {
-          vm.controllers[name] = new vm.$scrollmagic.Controller();
-          scenes.addTo(vm.controllers[name])
+          vm.controller = new vm.$scrollmagic.Controller();
+          vm.scenes[name] = scenes
+          vm.scenes[name].addTo(vm.controller)
         })
       })
+      vm.$on('destroyScene', (name) => {
+        vm.scenes[name].destroy(true)
+      })
       vm.$on('destroy', (name, scenes) => {
-        console.log('destroyed');
+        vm.controller.destroy(true)
+        vm.controller = null
+      })
+    }
+  })
+
+  Vue.directive('scrollmagic', {
+    updated (el, binding, vNode) {
+      Vue.nextTick(() => {
+        vNode.context.$ksvuescr.$emit('init', 'pinContainerScene', binding.value)
       })
     },
-
+    componentUpdated () {
+      console.log('comp updated')
+    }
   })
 
 
