@@ -9,8 +9,9 @@ Try it in this [ fiddle ](https://jsfiddle.net/romainPouchol/bstj6p41/5/).
 
 ## Remaining tasks
 
-- [] Add installation and utilisation infos to readme.md
-- [] Add support for gsap methods (onComplete,...)
+- [ ] Add installation and utilisation infos to readme.md
+- [ ] Add Iscroll option
+- [ ] Maybe create a directive to automatically destroy scrollmagic's controller when element is unbinded
 
 ---
 
