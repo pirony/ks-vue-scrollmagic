@@ -1,25 +1,32 @@
-import * as utils from './utils'
+import gsap from 'TweenMax'
+import ScrollMagic from 'ScrollMagic'
+require('animation.gsap')
 
 function plugin (Vue) {
-  Vue.directive('scrollmagic', {
-    inserted(el,binding,vNode){
-      console.log('inserted to' + el);
-      vNode.context.$nextTick(()=>{
-        setTimeout(()=>{
-          utils.setScrollMagic(el,binding,vNode)
-        },300)
+  Vue.prototype.$tweenmax = gsap
+  Vue.prototype.$scrollmagic = ScrollMagic
+  Vue.prototype.$ksvuescr = new Vue({
+    data () {
+      return {
+        controllers: []
+      }
+    },
+    created () {
+      const vm = this
+      vm.$on('init', (name, scenes) => {
+        Vue.nextTick(() => {
+          vm.controllers[name] = new vm.$scrollmagic.Controller();
+          scenes.addTo(vm.controllers[name])
+        })
+      })
+      vm.$on('destroy', (name, scenes) => {
+        console.log('destroyed');
       })
     },
-    update(el,binding,vNode){
-      vNode.context.$nextTick(()=>{
-        setTimeout(()=>{
-          utils.setScrollMagic(el,binding,vNode)
-        },300)
-      })
-    },
-    unbind(el,binding,vNode){
-    }
+
   })
+
+
 }
 
 // Install by default if using the script tag

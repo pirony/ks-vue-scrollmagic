@@ -3,65 +3,14 @@ require('animation.gsap')
 const ScrollMagic = require('ScrollMagic');
 
 export const setScrollMagic = (el, binding, vNode) => {
-  const timeline = new gsap.TimelineMax();
+  let timeline = new gsap.TimelineMax();
   const controller = new ScrollMagic.Controller();
-  const sceneParams = {
-    triggerHook: binding.value.triggerHook || '',
-    triggerElement: binding.value.triggerElement || el.parentNode,
-    duration: binding.value.duration,
-    offset: binding.value.offset
-  }
-  const scene = new ScrollMagic.Scene(sceneParams)
-  const actions = binding.value.actions
+  const actions = binding.value
+  const scene = new ScrollMagic.Scene(actions.sceneParams)
 
   if (actions.setTween) {
     actions.setTween.forEach((tween, i) =>{
-      switch (tween.tweenType) {
-        case 'to':
-          if (!tween.ref) {
-            timeline[tween.tweenType](el, tween.duration, tween.to, tween.timing)
-          } else {
-            if (vNode.context.$refs[tween.ref] instanceof Array) {
-              vNode.context.$refs[tween.ref].forEach((r) => {
-                timeline[tween.tweenType](r, tween.duration, tween.to, tween.timing)
-              })
-            } else {
-              timeline[tween.tweenType](vNode.context.$refs[tween.ref], tween.duration, tween.to, tween.timing)
-            }
-          }
-          break;
-        case 'from':
-          if (!tween.ref) {
-            timeline[tween.tweenType](el, tween.duration, tween.from, tween.timing)
-          } else {
-            if (vNode.context.$refs[tween.ref] instanceof Array) {
-              vNode.context.$refs[tween.ref].forEach((r) => {
-                timeline[tween.tweenType](r, tween.duration, tween.from, tween.timing)
-              })
-            } else {
-              timeline[tween.tweenType](vNode.context.$refs[tween.ref], tween.duration, tween.from, tween.timing)
-            }
-          }
-          break;
-        case 'fromTo':
-          if (!tween.ref) {
-            timeline[tween.tweenType](el, tween.duration, tween.from, tween.to, tween.timing)
-          } else {
-            if (vNode.context.$refs[tween.ref] instanceof Array) {
-              vNode.context.$refs[tween.ref].forEach((r) => {
-                timeline[tween.tweenType](r, tween.duration, tween.from, tween.to, tween.timing)
-              })
-            } else {
-              timeline[tween.tweenType](vNode.context.$refs[tween.ref], tween.duration, tween.from, tween.to, tween.timing)
-            }
-          }
-          break;
-        case 'staggerTo':
-        case 'staggerFrom':
-        case 'staggerFromTo':
-          timeline[tween.tweenType](tween.ref ? vNode.context.$refs[tween.ref] : el.children, tween.duration, tween.from, tween.staggerTime, tween.timing)
-          break;
-      }
+      timeline = constructTweens(el, tween, timeline, vNode)
     })
     // build scene
     scene.setTween(timeline)
@@ -97,4 +46,53 @@ export const setScrollMagic = (el, binding, vNode) => {
   }
 
   scene.addTo(controller)
+}
+
+function constructTweens (el, tween, timeline, vNode) {
+  switch (tween.type) {
+    case 'to':
+      if (!tween.ref) {
+        return timeline[tween.type](el, tween.duration, tween.to, tween.timing)
+      } else {
+        if (vNode.context.$refs[tween.ref] instanceof Array) {
+          vNode.context.$refs[tween.ref].forEach((r) => {
+            return timeline[tween.type](r, tween.duration, tween.to, tween.timing)
+          })
+        } else {
+          return timeline[tween.type](vNode.context.$refs[tween.ref], tween.duration, tween.to, tween.timing)
+        }
+      }
+      break;
+    case 'from':
+      if (!tween.ref) {
+        return timeline[tween.type](el, tween.duration, tween.from, tween.timing)
+      } else {
+        if (vNode.context.$refs[tween.ref] instanceof Array) {
+          vNode.context.$refs[tween.ref].forEach((r) => {
+            return timeline[tween.type](r, tween.duration, tween.from, tween.timing)
+          })
+        } else {
+          return timeline[tween.type](vNode.context.$refs[tween.ref], tween.duration, tween.from, tween.timing)
+        }
+      }
+      break;
+    case 'fromTo':
+      if (!tween.ref) {
+        return timeline[tween.type](el, tween.duration, tween.from, tween.to, tween.timing)
+      } else {
+        if (vNode.context.$refs[tween.ref] instanceof Array) {
+          vNode.context.$refs[tween.ref].forEach((r) => {
+            return timeline[tween.type](r, tween.duration, tween.from, tween.to, tween.timing)
+          })
+        } else {
+          return timeline[tween.type](vNode.context.$refs[tween.ref], tween.duration, tween.from, tween.to, tween.timing)
+        }
+      }
+      break;
+    case 'staggerTo':
+    case 'staggerFrom':
+    case 'staggerFromTo':
+      return timeline[tween.type](tween.ref ? vNode.context.$refs[tween.ref] : el.children, tween.duration, tween.from, tween.staggerTime, tween.timing)
+      break;
+  }
 }
