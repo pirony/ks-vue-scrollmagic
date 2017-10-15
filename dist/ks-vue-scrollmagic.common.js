@@ -1,5 +1,5 @@
 /*!
- * ks-vue-scrollmagic v0.1.5
+ * ks-vue-scrollmagic v1.0.0
  * (c) 2017 pirony
  * Released under the MIT License.
  */
@@ -13072,7 +13072,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 __webpack_require__(3);
 
 function plugin(Vue) {
-  Vue.prototype.$tweenmax = _TweenMax2.default;
+  Vue.prototype.$gsap = _TweenMax2.default;
   Vue.prototype.$scrollmagic = _ScrollMagic2.default;
   Vue.prototype.$ksvuescr = new Vue({
     data: function data() {
@@ -13085,7 +13085,7 @@ function plugin(Vue) {
       var vm = this;
       vm.$on('addScene', function (name, scenes) {
         Vue.nextTick(function () {
-          vm.controller = new vm.$scrollmagic.Controller();
+          if (vm.controller === null) vm.controller = new vm.$scrollmagic.Controller();
           vm.scenes[name] = scenes;
           vm.scenes[name].addTo(vm.controller);
         });

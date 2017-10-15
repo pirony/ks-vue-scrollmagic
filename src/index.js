@@ -18,7 +18,7 @@ function plugin (Vue) {
       const vm = this
       vm.$on('addScene', (name, scenes) => {
         Vue.nextTick(() => {
-          vm.controller = new vm.$scrollmagic.Controller();
+          if(vm.controller === null) vm.controller = new vm.$scrollmagic.Controller();
           vm.scenes[name] = scenes
           vm.scenes[name].addTo(vm.controller)
         })
