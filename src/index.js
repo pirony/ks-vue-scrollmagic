@@ -32,19 +32,6 @@ function plugin (Vue) {
       })
     }
   })
-
-  Vue.directive('scrollmagic', {
-    updated (el, binding, vNode) {
-      Vue.nextTick(() => {
-        vNode.context.$ksvuescr.$emit('init', 'pinContainerScene', binding.value)
-      })
-    },
-    componentUpdated () {
-      console.log('comp updated')
-    }
-  })
-
-
 }
 
 // Install by default if using the script tag

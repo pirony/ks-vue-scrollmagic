@@ -13137,17 +13137,6 @@ function plugin(Vue) {
       });
     }
   });
-
-  Vue.directive('scrollmagic', {
-    updated: function updated(el, binding, vNode) {
-      Vue.nextTick(function () {
-        vNode.context.$ksvuescr.$emit('init', 'pinContainerScene', binding.value);
-      });
-    },
-    componentUpdated: function componentUpdated() {
-      console.log('comp updated');
-    }
-  });
 }
 
 // Install by default if using the script tag
