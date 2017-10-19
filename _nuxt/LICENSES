@@ -11,6 +11,54 @@
  */
 
 /*!
+ * ks-vue-scrollmagic v1.0.2
+ * (c) 2017 pirony
+ * Released under the MIT License.
+ */
+
+/*!
+ * ScrollMagic v2.0.5 (2015-04-29)
+ * The javascript library for magical scroll interactions.
+ * (c) 2015 Jan Paepke (@janpaepke)
+ * Project Website: http://scrollmagic.io
+ * 
+ * @version 2.0.5
+ * @license Dual licensed under MIT license and GPL.
+ * @author Jan Paepke - e-mail@janpaepke.de
+ *
+ * @file ScrollMagic main library.
+ */
+
+/*!
+ * VERSION: 1.20.2
+ * DATE: 2017-06-30
+ * UPDATES AND DOCS AT: http://greensock.com
+ *
+ * @license Copyright (c) 2008-2017, GreenSock. All rights reserved.
+ * This work is subject to the terms at http://greensock.com/standard-license or for
+ * Club GreenSock members, the software agreement that was issued with your membership.
+ * 
+ * @author: Jack Doyle, jack@greensock.com
+ */
+
+/*!
+ * ScrollMagic v2.0.5 (2015-04-29)
+ * The javascript library for magical scroll interactions.
+ * (c) 2015 Jan Paepke (@janpaepke)
+ * Project Website: http://scrollmagic.io
+ * 
+ * @version 2.0.5
+ * @license Dual licensed under MIT license and GPL.
+ * @author Jan Paepke - e-mail@janpaepke.de
+ *
+ * @file ScrollMagic GSAP Animation Plugin.
+ *
+ * requires: GSAP ~1.14
+ * Powered by the Greensock Animation Platform (GSAP): http://www.greensock.com/js
+ * Greensock License info at http://www.greensock.com/licensing/
+ */
+
+/*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
  * @license   Licensed under MIT license
