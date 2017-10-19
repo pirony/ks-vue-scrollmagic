@@ -6,7 +6,7 @@
 Easily use ScrollMagic with vue.js (and nuxt.js...).
 Now production ready!!!
 
-Try it in this [ fiddle ](https://jsfiddle.net/romainPouchol/bstj6p41/11/).
+Try it in this [ fiddle ](https://jsfiddle.net/romainPouchol/v9jhjspn/).
 
 ---
 
@@ -159,7 +159,7 @@ export default {
         },
         {
           title: 'panel 3',
-          bgColor: '#ec407'
+          bgColor: '#ec407a'
         },
         {
           title: 'panel 4',
@@ -217,6 +217,8 @@ export default {
 }
 ```
 
+You can visualize the result of this example in this[ fiddle ](https://jsfiddle.net/romainPouchol/v9jhjspn/).
+
 ## Remaining tasks
 
 - [x] Add installation and utilisation infos to readme.md
@@ -226,6 +228,8 @@ export default {
 ---
 
 ## Contribution
+
+If your facing difficulties to use it, find some bugs or unexpected behaviour... feel free to open a new issue, I'll try to answer you asap ;)
 
 I'm just a lowly frontend developer trying to master ES6, so suggestions are more than welcome, not only for feature requests but also for coding style improvements.
 
