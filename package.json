@@ -1,6 +1,6 @@
 {
   "name": "ks-vue-scrollmagic",
-  "version": "1.0.5",
+  "version": "1.0.3",
   "description": "A Vue.js Plugin",
   "author": "pirony <romainpouchol@gmail.com>",
   "main": "dist/ks-vue-scrollmagic.common.js",
