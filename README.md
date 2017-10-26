@@ -99,17 +99,15 @@ First of all, let's create our template:
 
 ```html
 <template>
-  <div id="app"> // Where our app is mounted
-    <div class="pinContainer" ref="pin"> // The panels wrapper, that has to be pinned during all our animation
-      <section
-        v-for="(p, index) in panels"
-        class="panel"
-        :class="`panel-${index}`"
-        :style="{backgroundColor: p.bgColor}"
-      > // Single panel element, used with with v-for.
-      {{ p.title }}
-      </section>
-    </div>
+  <div class="pinContainer"> // The panels wrapper, that has to be pinned during all our animation
+    <section
+      v-for="(p, index) in panels"
+      class="panel"
+      :class="`panel-${index}`"
+      :style="{backgroundColor: p.bgColor}"
+    > // Single panel element, used with with v-for.
+    {{ p.title }}
+    </section>
   </div>
 </template>
 ```
@@ -190,8 +188,9 @@ export default {
             animFrom = {y: '-100%'} // Finally, the last one comes from the top
             break;
         }
-        if (i !== 0) { // For each panel except the one whom index is 0, create the tween and add it to the tl timeline
-          tl.fromTo(`section.panel-${i}`, 1.5, animFrom, {x: '0%', y: '0%', ease: Linear.easeNone})
+        if (i !== 0) { // For each panel except the one whom index is 0, create the tween and add it to the tl timeline.
+          // (To use GSAP easings, just prefix their name with this.$gsap)
+          tl.fromTo(`section.panel-${i}`, 1.5, animFrom, {x: '0%', y: '0%', ease: this.$gsap.Linear.easeNone})
         }
       }
 
