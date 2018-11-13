@@ -20,7 +20,7 @@ function plugin (Vue) {
         Vue.nextTick(() => {
           if(vm.controller === null) vm.controller = new vm.$scrollmagic.Controller();
           vm.scenes[name] = scenes
-          vm.scenes[name].addTo(vm.controller)
+          vm.controller.addScenes(vm.scenes[name])
         })
       })
       vm.$on('destroyScene', (name) => {
