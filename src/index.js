@@ -24,7 +24,14 @@ function plugin (Vue) {
         })
       })
       vm.$on('destroyScene', (name) => {
-        vm.scenes[name].destroy(true)
+        const scenes = vm.scenes[name]
+        if (Array.isArray(scenes)) {
+          for (let i = 0; i < scenes.length; i++) {
+            scenes[i].destroy(true)
+          }
+        } else {
+          scenes.destroy(true)
+        }
       })
       vm.$on('destroy', (name, scenes) => {
         vm.controller.destroy(true)
